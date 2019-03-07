@@ -41,6 +41,7 @@ int main()
 
 
 	Partie laPartie;
+	laPartie.init();
 	bool debutPartie = false;
 	char buf[4096];
 	bool tourJoueur1 = false;
@@ -88,16 +89,6 @@ int main()
 
 	while (1)
 	{
-		laPartie.init();
-		if (debutPartie == false)
-		{
-			string reponse = "La partie va commencer joueur 1";
-			string reponse2 = "la partie va commencer joueur 2";
-
-			send(clients[0], reponse.c_str(), reponse.size(), 0);
-
-			send(clients[1], reponse2.c_str(), reponse2.size(), 0);
-		}
 
 		if (debutPartie == false)
 		{
@@ -199,6 +190,7 @@ int main()
 		
 	}
 }
+
 // Exécuter le programme : Ctrl+F5 ou menu Déboguer > Exécuter sans débogage
 // Déboguer le programme : F5 ou menu Déboguer > Démarrer le débogage
 
