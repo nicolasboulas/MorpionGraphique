@@ -159,6 +159,8 @@ int main()
 				if (laPartie.EstCordonneValide((int)buf[2], (int)buf[3]))
 				{
 					send(clients[0], CaseValide.c_str(), CaseValide.size(), 0);
+					laPartie.cocherX(buf[2], buf[3]);
+					laPartie.testX(buf[2], buf[3]);
 					tourJoueur1 = false;
 				}
 				else
@@ -179,6 +181,8 @@ int main()
 				if (laPartie.EstCordonneValide((int)buf[2], (int)buf[3]))
 				{
 					send(clients[1], CaseValide.c_str(), CaseValide.size(), 0);
+					laPartie.cocherO(buf[2], buf[3]);
+					laPartie.testO(buf[2], buf[3]);
 					tourJoueur1 = true;
 				}
 				else
@@ -195,7 +199,6 @@ int main()
 		
 	}
 }
-
 // Exécuter le programme : Ctrl+F5 ou menu Déboguer > Exécuter sans débogage
 // Déboguer le programme : F5 ou menu Déboguer > Démarrer le débogage
 
