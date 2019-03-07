@@ -34,6 +34,8 @@ bool Partie::EstCordonneValide(int x, int y)
 }
 
 bool Partie::cocherX(int x, int y) {
+	x = x - 48;
+	y = y - 48;
 	if (x < 3 && y < 3 && x >= 0 && y >= 0) {
 		this->grille[x][y] = 1;
 	}
@@ -41,6 +43,8 @@ bool Partie::cocherX(int x, int y) {
 }
 
 bool Partie::cocherO(int x, int y) {
+	x = x - 48;
+	y = y - 48;
 	if (x < 3 && y < 3 && x >= 0 && y >= 0) {
 		this->grille[x][y] = 2;
 	}
@@ -70,9 +74,11 @@ bool Partie::EstPartieGagne()
 }
 
 bool Partie::testO(int x, int y) {
+	x = x - 48;
+	y = y - 48;
 	if (this->cocherO(x, y)) {
 		this->EstPartieGagne();
-		cout << "Le joueur O a gagné";
+		cout << "Le joueur O a gagnÃ©";
 		return true;
 	}
 	else {
@@ -81,8 +87,10 @@ bool Partie::testO(int x, int y) {
 }
 
 bool Partie::testX(int x, int y) {
+	x = x - 48;
+	y = y - 48;
 	if (this->cocherX(x, y)) {
-		cout << "Le joueur X a gagné";
+		cout << "Le joueur X a gagnÃ©";
 		this->EstPartieGagne();
 		return true;
 	}
@@ -96,5 +104,6 @@ int Partie::tirage() {
 	int nb = rand() % 2;
 	return nb;
 }
+
 
 
