@@ -88,7 +88,7 @@ int main()
 
 	while (1)
 	{
-
+		laPartie.init();
 		if (debutPartie == false)
 		{
 			string reponse = "La partie va commencer joueur 1";
@@ -99,42 +99,51 @@ int main()
 			send(clients[1], reponse2.c_str(), reponse2.size(), 0);
 		}
 
-		ZeroMemory(buf, 4096);
-		recv(clients[0], buf, 4096, 0);
-
-		string symbole = "cr";
-
-		if (buf[0] == 's' && buf[1] == 'y' && debutPartie == false)
+		if (debutPartie == false)
 		{
-			send(clients[0], symbole.c_str(), symbole.size(), 0);
-		}
+			ZeroMemory(buf, 4096);
+			recv(clients[0], buf, 4096, 0);
 
+			string symbole = "cr";
+			string symbole2 = "ro";
 
-
-		ZeroMemory(buf, 4096);
-		recv(clients[0], buf, 4096, 0);
-		string premierTour = "o";
-		string secondTour = "n";
-
-		if (buf[0] == 'f' && buf[1] == 'i' && debutPartie == false)
-		{
-			int tirage = laPartie.tirage();
-
-			switch (tirage)
+			if (buf[0] == 's' && buf[1] == 'y' && debutPartie == false)
 			{
-			case 0 :
-				send(clients[0], premierTour.c_str(), premierTour.size(), 0);
-				tourJoueur1 = true;
-				break;
-			case 1 :
-				send(clients[0], secondTour.c_str(), secondTour.size(), 0);
-				break;
+				send(clients[0], symbole.c_str(), symbole.size(), 0);
+				send(clients[1], symbole2.c_str(), symbole2.size(), 0);
 			}
-			
-			debutPartie = true;
-			
 		}
 
+
+		if (debutPartie == false)
+		{
+			ZeroMemory(buf, 4096);
+			recv(clients[0], buf, 4096, 0);
+			string premierTour = "o";
+			string secondTour = "n";
+
+			if (buf[0] == 'f' && buf[1] == 'i' && debutPartie == false)
+			{
+				int tirage = laPartie.tirage();
+
+				switch (tirage)
+				{
+				case 0:
+					send(clients[0], premierTour.c_str(), premierTour.size(), 0);
+					send(clients[1], secondTour.c_str(), secondTour.size(), 0);
+					tourJoueur1 = true;
+					break;
+				case 1:
+					send(clients[0], secondTour.c_str(), secondTour.size(), 0);
+					send(clients[1], premierTour.c_str(), premierTour.size(), 0);
+					tourJoueur1 = false;
+					break;
+				}
+
+				debutPartie = true;
+
+			}
+		}
 		
 		string CaseValide = "o";
 		string CaseNonValide = "n";
@@ -150,11 +159,14 @@ int main()
 				if (laPartie.EstCordonneValide((int)buf[2], (int)buf[3]))
 				{
 					send(clients[0], CaseValide.c_str(), CaseValide.size(), 0);
+					tourJoueur1 = false;
 				}
 				else
 				{
 					send(clients[0], CaseNonValide.c_str(), CaseNonValide.size(), 0);
+					tourJoueur1 = false;
 				}
+				tourJoueur1 = false;
 			}
 		}
 		else
@@ -167,11 +179,14 @@ int main()
 				if (laPartie.EstCordonneValide((int)buf[2], (int)buf[3]))
 				{
 					send(clients[1], CaseValide.c_str(), CaseValide.size(), 0);
+					tourJoueur1 = true;
 				}
 				else
 				{
 					send(clients[1], CaseNonValide.c_str(), CaseNonValide.size(), 0);
+					tourJoueur1 = true;
 				}
+				tourJoueur1 = true;
 			}
 		}
 		
