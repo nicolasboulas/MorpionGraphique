@@ -92,8 +92,11 @@ int main()
 
 		if (debutPartie == false)
 		{
+			char buf2[4096];
+			ZeroMemory(buf2, 4096);
 			ZeroMemory(buf, 4096);
 			recv(clients[0], buf, 4096, 0);
+			recv(clients[1], buf2, 4096, 0);
 
 			string symbole = "cr";
 			string symbole2 = "ro";
@@ -108,8 +111,11 @@ int main()
 
 		if (debutPartie == false)
 		{
+			char buf2[4096];
+			ZeroMemory(buf2, 4096);
 			ZeroMemory(buf, 4096);
 			recv(clients[0], buf, 4096, 0);
+			recv(clients[1], buf2, 4096, 0);
 			string premierTour = "o";
 			string secondTour = "n";
 
